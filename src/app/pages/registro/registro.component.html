@@ -1,35 +1,41 @@
-<div class="limiter">
+<div class="limiter animated fadeInRightBig">
     <div class="container-login100">
         <div class="wrap-login100 p-t-50 p-b-90">
-            <form class="login100-form validate-form flex-sb flex-w">
+            <form #registroForm="ngForm" (ngSubmit)="nuevoUsuario( registroForm )" class="login100-form validate-form flex-sb flex-w">
 
                 <span class="login100-form-title p-b-51">
                     Crear nueva cuenta
                 </span>
 
-                <!-- <span class="text-danger">El correo es obligatorio</span> -->
+                <span *ngIf="registroForm.submitted  && registroForm.controls['email'].errors" class="text-danger animated fadeIn">El correo es obligatorio</span>
                 <div class="wrap-input100 m-b-16">
-                    <input class="input100" type="text" name="email" placeholder="Email">
+                    <input [(ngModel)]="usario.email" class="input100" type="email" required email name="email" placeholder="Email">
+                    <span class="focus-input100"></span>
+                </div>
+
+                <span *ngIf="registroForm.submitted  && registroForm.controls['nombre'].errors" class="text-danger animated fadeIn">El nombre es obligatorio</span>
+                <div class="wrap-input100 m-b-16">
+                    <input required minlength="5" [(ngModel)]="usario.name" class="input100" type="text" name="nombre" placeholder="Nombre y apellidos">
 
                     <span class="focus-input100"></span>
                 </div>
 
-                <!-- <span class="text-danger">El nombre es obligatorio</span> -->
+                <span *ngIf="registroForm.submitted  && registroForm.controls['celular'].errors" class="text-danger animated fadeIn">El numero ingresado es incorrecto</span>
                 <div class="wrap-input100 m-b-16">
-                    <input class="input100" type="text" name="nombre" placeholder="Nombre y apellidos">
+                    <input required minlength="10" [(ngModel)]="usario.numberPhone" class="input100" type="text" name="celular" placeholder="Numero Celular">
 
                     <span class="focus-input100"></span>
                 </div>
 
-                <!-- <span class="text-danger">La contraseña debe de ser más de 6 letras</span> -->
+                <span *ngIf="registroForm.submitted  && registroForm.controls['password'].errors" class="text-danger animated fadeIn">La contraseña debe de ser más de 6 letras</span>
                 <div class="wrap-input100 m-b-16" data-validate="Password is required">
-                    <input class="input100" type="password" name="pass" placeholder="Password">
+                    <input required minlength="6" [(ngModel)]="usario.password" class="input100" type="password" name="password" placeholder="Password">
                     <span class="focus-input100"></span>
                 </div>
 
                 <div class="flex-sb-m w-full p-t-3 p-b-24">
                     <div class="contact100-form-checkbox">
-                        <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+                        <input [(ngModel)]="recordarme" class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
                         <label class="label-checkbox100" for="ckb1">
                             Recordar mi usuario
                         </label>
